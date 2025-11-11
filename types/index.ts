@@ -77,6 +77,7 @@ export interface DashboardMetrics {
     valorTotalGerado: number;
   };
   indicacoesMesAtual: number;
+  obrigadosMesAtual: number;
   topMembrosIndicadores: Array<{
     membro: {
       id: string;
