@@ -318,5 +318,3 @@ Este design system foi criado para ser:
 - ✅ Responsivo
 - ✅ Fácil de manter
 - ✅ Escalável
-
-Sinta-se à vontade para ajustar as cores e animações conforme necessário!
