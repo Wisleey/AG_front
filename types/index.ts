@@ -13,11 +13,11 @@ export interface Intencao {
   id: string;
   nome: string;
   email: string;
-  telefone: string;
+  telefone?: string;
   empresa: string;
   cargo?: string;
   areaAtuacao?: string;
-  mensagem?: string;
+  mensagem: string;
   status: 'PENDENTE' | 'APROVADO' | 'REJEITADO';
   dataIntencao: string;
   dataAvaliacao?: string;

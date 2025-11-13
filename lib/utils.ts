@@ -32,7 +32,10 @@ export function formatDate(date: Date | string): string {
 /**
  * Formata telefone brasileiro
  */
-export function formatPhone(phone: string): string {
+export function formatPhone(phone: string | null | undefined): string {
+  if (!phone) {
+    return 'Não informado';
+  }
   const cleaned = phone.replace(/\D/g, '');
   const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
   if (match) {

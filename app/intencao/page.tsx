@@ -20,11 +20,8 @@ import Link from 'next/link';
 const intencaoSchema = z.object({
   nome: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres'),
   email: z.string().email('Email inválido'),
-  telefone: z.string().min(10, 'Telefone deve ter no mínimo 10 dígitos'),
   empresa: z.string().min(2, 'Nome da empresa é obrigatório'),
-  cargo: z.string().optional(),
-  areaAtuacao: z.string().optional(),
-  mensagem: z.string().max(1000).optional(),
+  mensagem: z.string().min(10, 'Por favor, conte-nos por que você quer participar (mínimo 10 caracteres)').max(1000, 'Mensagem muito longa (máximo 1000 caracteres)'),
 });
 
 type IntencaoFormData = z.infer<typeof intencaoSchema>;
@@ -131,100 +128,49 @@ export default function IntencaoPage() {
               </Alert>
             )}
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              {/* Grid de 2 colunas para melhor organização */}
-              <div className="grid md:grid-cols-2 gap-5">
-                {/* Nome */}
-                <div className="md:col-span-2">
-                  <Input
-                    label="Nome Completo"
-                    {...register('nome')}
-                    error={errors.nome?.message}
-                    placeholder="João Silva"
-                    required
-                    disabled={false}
-                    readOnly={false}
-                    autoComplete="name"
-                  />
-                </div>
-
-                {/* Email */}
-                <Input
-                  label="Email"
-                  type="email"
-                  {...register('email')}
-                  error={errors.email?.message}
-                  placeholder="joao@exemplo.com"
-                  required
-                  disabled={false}
-                  readOnly={false}
-                  autoComplete="email"
-                />
-
-                {/* Telefone */}
-                <Input
-                  label="Telefone"
-                  {...register('telefone')}
-                  error={errors.telefone?.message}
-                  placeholder="(11) 91234-5678"
-                  required
-                  disabled={false}
-                  readOnly={false}
-                  autoComplete="tel"
-                />
-
-                {/* Empresa */}
-                <Input
-                  label="Empresa"
-                  {...register('empresa')}
-                  error={errors.empresa?.message}
-                  placeholder="Minha Empresa Ltda"
-                  required
-                  disabled={false}
-                  readOnly={false}
-                  autoComplete="organization"
-                />
-
-                {/* Cargo */}
-                <Input
-                  label="Cargo"
-                  {...register('cargo')}
-                  error={errors.cargo?.message}
-                  placeholder="CEO, Diretor, Gerente..."
-                  disabled={false}
-                  readOnly={false}
-                  autoComplete="organization-title"
-                />
-              </div>
-
-              {/* Área de Atuação - Largura Total */}
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Nome */}
               <Input
-                label="Área de Atuação"
-                {...register('areaAtuacao')}
-                error={errors.areaAtuacao?.message}
-                placeholder="Tecnologia, Consultoria, Marketing..."
-                disabled={false}
-                readOnly={false}
+                label="Nome Completo"
+                {...register('nome')}
+                error={errors.nome?.message}
+                placeholder="Ex: João Silva"
+                required
+                autoComplete="name"
               />
 
-              {/* Mensagem */}
-              <div style={{ position: 'relative', zIndex: 10 }}>
+              {/* Email */}
+              <Input
+                label="Email"
+                type="email"
+                {...register('email')}
+                error={errors.email?.message}
+                placeholder="Ex: joao@exemplo.com"
+                required
+                autoComplete="email"
+              />
+
+              {/* Empresa */}
+              <Input
+                label="Empresa"
+                {...register('empresa')}
+                error={errors.empresa?.message}
+                placeholder="Ex: Minha Empresa Ltda"
+                required
+                autoComplete="organization"
+              />
+
+              {/* Por que você quer participar? */}
+              <div>
                 <label className="block text-sm font-medium text-neutral-300 mb-2">
-                  Mensagem (Opcional)
+                  Por que você quer participar? <span className="text-red-400">*</span>
                 </label>
                 <textarea
                   {...register('mensagem')}
-                  rows={4}
-                  className="input-modern resize-none"
-                  placeholder="Conte-nos um pouco sobre você e por que quer participar..."
-                  disabled={false}
-                  readOnly={false}
-                  style={{ 
-                    position: 'relative', 
-                    zIndex: 20, 
-                    pointerEvents: 'auto',
-                    cursor: 'text'
-                  }}
+                  rows={5}
+                  className="input-modern resize-none w-full"
+                  placeholder="Conte-nos por que você quer fazer parte do nosso grupo de networking..."
+                  required
                 />
                 {errors.mensagem && (
                   <p className="mt-2 text-sm text-red-400 flex items-center gap-1">
